@@ -1,0 +1,60 @@
+# Answer file for setting up Alpine Linux in a diskless setup. These variables
+# are used by setup-alpine and friends to configure the system. Run
+# "setup-alpine -h" or look at the source for the setup-* scripts to see what
+# options are available and how they function.
+
+# Set up the apk-cache directory. The device is probably something like
+# "/dev/sda1" if using a USB drive. (setup-apkcache)
+APKCACHEOPTS="/media/mmcblk0p1/cache"
+
+# Set up apk to use the first repository it loads. (setup-apkrepos)
+APKREPOSOPTS="-1"
+
+# Set the host name. (setup-hostname)
+HOSTNAMEOPTS="-n alpine"
+
+# Set up networking. Must not be empty. (setup-interfaces)
+INTERFACESOPTS="auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+	hostname alpine
+"
+
+# Set the keyboard layout. (setup-keymap)
+KEYMAPOPTS="us us"
+
+# Set up the LBU directory for saving commits. (setup-lbu)
+LBUOPTS="mmcblk0p1"
+
+# Set the NTP daemon. Must not be set to "-c none". (setup-ntp)
+NTPOPTS="-c chrony"
+
+# Set the proxy settings. (setup-proxy)
+PROXYOPTS="none"
+
+# Set up SSH to use OpenSSH. (setup-sshd)
+SSHDOPTS="-c openssh"
+
+# Set the time zone. (setup-timezone)
+TIMEZONEOPTS="-z UTC"
+
+###
+### The following variables are specific to install.sh
+###
+
+# Set whether automatic mode should be enabled ("Y") or not ("N"). This will
+# prevent install.sh from asking to continue or reboot.
+AUTOMATIC_MODE="N"
+
+# Set the devices and mount points. The devices are probably something like
+# "/dev/sda1" and "/dev/sda2" if using a USB drive.
+BOOT_DEVICE="/dev/mmcblk0p1"
+BOOT_MOUNT_POINT="/media/mmcblk0p1"
+OVERLAY_DEVICE="/dev/mmcblk0p2"
+OVERLAY_MOUNT_POINT="/media/overlay"
+
+# Set whether to use the software clock ("Y") or the hardware clock ("N"). The
+# software clock should be used if the hardware doesn't have a clock.
+USE_SOFTWARE_CLOCK="Y"
